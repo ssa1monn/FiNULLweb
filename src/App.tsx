@@ -128,7 +128,7 @@ function App() {
 
       <footer className="footer mt-auto py-3 bg-dark text-white-50">
         <div className="container text-center">
-          <small>&copy; 2025 {siteName} FiNULL 팀. All rights reserved.</small>
+          <small>&copy; 2025 인천대학교 FiNULL 팀. All rights reserved.</small>
         </div>
       </footer>
     </div>

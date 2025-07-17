@@ -1,60 +1,60 @@
 import { LogEntry } from './types';
-import { mockExtinguishers } from './mockData';
 
-const generateMockLogs = (): LogEntry[] => {
-  const logs: LogEntry[] = [];
-  let logId = 1;
-  const now = new Date();
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(now.getMonth() - 6);
-
-  const getRandomTimestamp = (start: Date, end: Date): string => {
-    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-    return date.toISOString().slice(0, 19).replace('T', ' ');
-  };
-
-  const logTypes: LogEntry['type'][] = ['fire_detected', 'extinguisher_used', 'battery_low', 'offline', 'online', 'normal'];
-
-  for (let i = 0; i < 500; i++) { // 500개의 로그 생성
-    const randomExtinguisher = mockExtinguishers[Math.floor(Math.random() * mockExtinguishers.length)];
-    const randomLogType = logTypes[Math.floor(Math.random() * logTypes.length)];
-    const timestamp = getRandomTimestamp(sixMonthsAgo, now);
-
-    let message = '';
-    switch (randomLogType) {
-      case 'fire_detected':
-        message = `${randomExtinguisher.name}에서 화재가 감지되었습니다.`;
-        break;
-      case 'extinguisher_used':
-        message = `${randomExtinguisher.name}의 소화기가 분사되었습니다.`;
-        break;
-      case 'battery_low':
-        const batteryLevel = Math.floor(Math.random() * 20) + 5; // 5-24%
-        message = `${randomExtinguisher.name}의 배터리 잔량이 낮습니다 (${batteryLevel}%).`;
-        break;
-      case 'offline':
-        message = `${randomExtinguisher.name}이(가) 오프라인 상태입니다.`;
-        break;
-      case 'online':
-        message = `${randomExtinguisher.name}이(가) 다시 온라인 상태가 되었습니다.`;
-        break;
-      case 'normal':
-        message = `${randomExtinguisher.name}의 상태가 정상으로 확인되었습니다.`;
-        break;
-    }
-
-    logs.push({
-      id: logId++,
-      timestamp,
-      extinguisherId: randomExtinguisher.id,
-      extinguisherName: randomExtinguisher.name,
-      type: randomLogType,
-      message,
-    });
-  }
-
-  // 시간순으로 정렬 (최신순)
-  return logs.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-};
-
-export const mockLogs: LogEntry[] = generateMockLogs();
+export const mockLogs: LogEntry[] = [
+  {
+    id: 1,
+    timestamp: '2025-07-17 10:00:00',
+    extinguisherId: 1,
+    extinguisherName: '7호관 1층 복도',
+    type: 'fire_detected',
+    message: '7호관 1층 복도에서 화재가 감지되었습니다.',
+  },
+  {
+    id: 2,
+    timestamp: '2025-07-17 10:05:00',
+    extinguisherId: 1,
+    extinguisherName: '7호관 1층 복도',
+    type: 'extinguisher_used',
+    message: '7호관 1층 복도의 소화기가 분사되었습니다.',
+  },
+  {
+    id: 3,
+    timestamp: '2025-07-17 10:10:00',
+    extinguisherId: 4,
+    extinguisherName: '7호관 1층 라운지',
+    type: 'offline',
+    message: '7호관 1층 라운지 소화기가 오프라인 상태입니다.',
+  },
+  {
+    id: 4,
+    timestamp: '2025-07-17 10:15:00',
+    extinguisherId: 3,
+    extinguisherName: '7호관 1층 계단',
+    type: 'battery_low',
+    message: '7호관 1층 계단 소화기의 배터리 잔량이 낮습니다 (25%).',
+  },
+  {
+    id: 5,
+    timestamp: '2025-07-17 10:20:00',
+    extinguisherId: 5,
+    extinguisherName: '7호관 2층 복도',
+    type: 'normal',
+    message: '7호관 2층 복도 소화기 상태가 정상으로 확인되었습니다.',
+  },
+  {
+    id: 6,
+    timestamp: '2025-07-17 10:25:00',
+    extinguisherId: 11,
+    extinguisherName: '7호관 3층 교수실 B',
+    type: 'extinguisher_used',
+    message: '7호관 3층 교수실 B의 소화기가 분사되었습니다.',
+  },
+  {
+    id: 7,
+    timestamp: '2025-07-17 10:30:00',
+    extinguisherId: 16,
+    extinguisherName: '7호관 4층 계단',
+    type: 'online',
+    message: '7호관 4층 계단 소화기가 다시 온라인 상태가 되었습니다.',
+  },
+];

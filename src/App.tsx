@@ -4,13 +4,14 @@ import ExtinguisherSummary from './components/ExtinguisherSummary';
 import BuildingPlan from './components/BuildingPlan';
 import LogsView from './components/LogsView';
 import SettingsView from './components/SettingsView';
+import ESP32TestView from './components/ESP32TestView'; // ESP32TestView import 추가
 // import ExtinguisherDetailView from './components/ExtinguisherDetailView'; // ExtinguisherDetailView import 제거
 import { mockExtinguishers } from './mockData';
 import { mockLogs } from './mockLogs';
 import { Extinguisher } from './types';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'logs' | 'settings'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'logs' | 'settings' | 'esp32'>('dashboard'); // esp32 뷰 추가
   const [selectedExtinguisherId, setSelectedExtinguisherId] = useState<number | null>(null);
   // const [selectedExtinguisher, setSelectedExtinguisher] = useState<Extinguisher | null>(null); // 상세 정보 표시용 상태 제거
   const [siteName, setSiteName] = useState<string>('인천대학교');
@@ -79,6 +80,15 @@ function App() {
                   <i className="bi bi-gear me-1"></i> 설정
                 </a>
               </li>
+              <li className="nav-item">
+                <a
+                  className={`nav-link ${currentView === 'esp32' ? 'active' : ''}`}
+                  href="#"
+                  onClick={() => setCurrentView('esp32')}
+                >
+                  <i className="bi bi-wifi me-1"></i> ESP32 테스트
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -117,6 +127,7 @@ function App() {
         )}
         {currentView === 'logs' && <LogsView logs={mockLogs} />}
         {currentView === 'settings' && <SettingsView siteName={siteName} setSiteName={setSiteName} />}
+        {currentView === 'esp32' && <ESP32TestView />}
 
         {/* selectedExtinguisher && ( // 조건부 렌더링 제거
           <ExtinguisherDetailView 

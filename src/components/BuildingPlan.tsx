@@ -1,4 +1,4 @@
-'''// src/components/BuildingPlan.tsx
+// src/components/BuildingPlan.tsx
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -352,4 +352,3 @@ const BuildingPlan: React.FC<BuildingPlanProps> = ({ extinguishers, selectedExti
 };
 
 export default BuildingPlan;
-''
